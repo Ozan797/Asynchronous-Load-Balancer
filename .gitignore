@@ -32,3 +32,9 @@
 *.app
 
 .vscode/
+
+build/
+
+dist/
+package-lock.json
+node_modules
