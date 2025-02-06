@@ -2,21 +2,25 @@
 #define LOAD_BALANCER_HPP
 
 #include <boost/asio.hpp>
-#include <vector>
 #include <string>
+#include <vector>
 
 class LoadBalancer {
 public:
-    LoadBalancer(boost::asio::io_context& io_context, const std::vector<std::string>& backend_servers, unsigned short port);
+    LoadBalancer(boost::asio::io_context& io_context,
+                 const std::string& listen_address,
+                 unsigned short listen_port,
+                 const std::vector<std::string>& backend_servers);
+
     void start_accept();
 
 private:
     void handle_accept(const boost::system::error_code& error);
-    std::string get_next_server();
 
+    boost::asio::io_context& io_context_;
     boost::asio::ip::tcp::acceptor acceptor_;
     std::vector<std::string> backend_servers_;
-    size_t current_server_index_;
+    std::size_t next_server_index_;
 };
 
-#endif
+#endif // LOAD_BALANCER_HPP
