@@ -9,9 +9,7 @@ int main() {
         boost::asio::io_context io_context;
 
         std::vector<std::string> backend_servers = {
-            "127.0.0.1:9001",
-            "127.0.0.1:9002",
-            "127.0.0.1:9003"
+                "127.0.0.1:3000", // Node.js server
         };
 
         LoadBalancer lb(io_context, "0.0.0.0", 8080, backend_servers);
